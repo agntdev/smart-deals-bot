@@ -1,17 +1,44 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard, paginate } from "../toolkit/index.js";
+import type { Product } from "../data.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "⭐ Best Sellers", data: "category:best_sellers" }) if the toolkit exposes it.
+const composer = new Composer<Ctx>();
 
-const composer = new Composer();
+function emptyProducts(): Product[] { return []; }
 
 composer.callbackQuery("category:best_sellers", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Browse best-selling deals");
+  const products = emptyProducts().filter((p) => p.active && p.category === "best_sellers");
+  if (products.length === 0) {
+    await ctx.editMessageText("⭐ No best sellers yet — check back soon!", {
+      reply_markup: inlineKeyboard([[inlineButton("⬅️ Back to menu", "menu:main")]]),
+    });
+    return;
+  }
+  const page = 0;
+  const { pageItems, controls } = paginate(products, { page, perPage: 5, callbackPrefix: "cat:best" });
+  const lines = pageItems.map((p, i) => `${i + 1}. ${p.title} — $${p.discount_price} (was $${p.original_price})`);
+  const keyboard = inlineKeyboard([
+    ...pageItems.map((p) => [inlineButton(`${p.title}`, `product:${p.id}`)]),
+    ...controls.inline_keyboard,
+    [inlineButton("⬅️ Back to menu", "menu:main")],
+  ]);
+  await ctx.editMessageText(`⭐ Best Sellers (${products.length})\n\n${lines.join("\n")}`, { reply_markup: keyboard });
+});
+
+composer.callbackQuery(/^cat:best:(prev|next):(\d+)$/, async (ctx) => {
+  await ctx.answerCallbackQuery();
+  const page = parseInt(ctx.match[2], 10);
+  const products = emptyProducts().filter((p) => p.active && p.category === "best_sellers");
+  const { pageItems, controls } = paginate(products, { page, perPage: 5, callbackPrefix: "cat:best" });
+  const lines = pageItems.map((p, i) => `${i + 1}. ${p.title} — $${p.discount_price} (was $${p.original_price})`);
+  const keyboard = inlineKeyboard([
+    ...pageItems.map((p) => [inlineButton(`${p.title}`, `product:${p.id}`)]),
+    ...controls.inline_keyboard,
+    [inlineButton("⬅️ Back to menu", "menu:main")],
+  ]);
+  await ctx.editMessageText(`⭐ Best Sellers (${products.length})\n\n${lines.join("\n")}`, { reply_markup: keyboard });
 });
 
 export default composer;

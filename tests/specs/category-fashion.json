@@ -1,19 +1,17 @@
 [
   {
-    "name": "裾 Fashion",
+    "name": "Fashion shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:fashion" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse fashion deals"
+              "text": "👗 No fashion deals right now — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:fashion"
-        }
+        ]
       }
     ]
   }

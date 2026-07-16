@@ -1,19 +1,17 @@
 [
   {
-    "name": "/favorites",
+    "name": "/favorites shows empty state",
     "steps": [
       {
+        "send": { "text": "/favorites" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "View saved favorite deals"
+              "text": "⭐ You haven't saved any favorites yet.\n\nBrowse deals and tap Save to add them here."
             }
           }
-        ],
-        "send": {
-          "text": "/favorites"
-        }
+        ]
       }
     ]
   }

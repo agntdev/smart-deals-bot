@@ -1,19 +1,17 @@
 [
   {
-    "name": "Notify Price Drop",
+    "name": "Notify Price Drop shows guidance",
     "steps": [
       {
+        "send": { "callback": "subscribe:price_drop" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Subscribe to price drop notifications for a product"
+              "text": "🔔 Price drop notifications\n\nPick a product first, then tap \"Notify me\" on its page to get alerted when the price drops."
             }
           }
-        ],
-        "send": {
-          "callback": "subscribe:price_drop"
-        }
+        ]
       }
     ]
   }

@@ -1,19 +1,17 @@
 [
   {
-    "name": "🎁 Coupons",
+    "name": "Coupons shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:coupons" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse coupon deals"
+              "text": "🎁 No coupon deals right now — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:coupons"
-        }
+        ]
       }
     ]
   }

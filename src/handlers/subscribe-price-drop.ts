@@ -1,17 +1,20 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard } from "../toolkit/index.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "Notify Price Drop", data: "subscribe:price_drop" }) if the toolkit exposes it.
-
-const composer = new Composer();
+const composer = new Composer<Ctx>();
 
 composer.callbackQuery("subscribe:price_drop", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Subscribe to price drop notifications for a product");
+  await ctx.editMessageText(
+    "🔔 Price drop notifications\n\nPick a product first, then tap \"Notify me\" on its page to get alerted when the price drops.",
+    {
+      reply_markup: inlineKeyboard([
+        [inlineButton("🔥 Browse deals", "category:today")],
+        [inlineButton("⬅️ Back to menu", "menu:main")],
+      ]),
+    },
+  );
 });
 
 export default composer;

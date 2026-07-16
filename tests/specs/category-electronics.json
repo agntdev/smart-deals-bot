@@ -1,19 +1,17 @@
 [
   {
-    "name": "📱 Electronics",
+    "name": "Electronics shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:electronics" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse electronics deals"
+              "text": "📱 No electronics deals right now — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:electronics"
-        }
+        ]
       }
     ]
   }
