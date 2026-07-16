@@ -1,0 +1,20 @@
+[
+  {
+    "name": "🔥 Today's Deals",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Show featured deals of the day"
+            }
+          }
+        ],
+        "send": {
+          "callback": "category:today"
+        }
+      }
+    ]
+  }
+]
