@@ -1,0 +1,20 @@
+[
+  {
+    "name": "💻 Gadgets",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Browse gadget deals"
+            }
+          }
+        ],
+        "send": {
+          "callback": "category:gadgets"
+        }
+      }
+    ]
+  }
+]
