@@ -1,19 +1,17 @@
 [
   {
-    "name": "⭐ Best Sellers",
+    "name": "Best Sellers shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:best_sellers" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse best-selling deals"
+              "text": "⭐ No best sellers yet — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:best_sellers"
-        }
+        ]
       }
     ]
   }

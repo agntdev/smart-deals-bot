@@ -1,19 +1,17 @@
 [
   {
-    "name": "/search",
+    "name": "/search prompts for query",
     "steps": [
       {
+        "send": { "text": "/search" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Search for products by title or description"
+              "text": "🔍 What are you looking for? Type a product name or keyword."
             }
           }
-        ],
-        "send": {
-          "text": "/search"
-        }
+        ]
       }
     ]
   }

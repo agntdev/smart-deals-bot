@@ -1,19 +1,17 @@
 [
   {
-    "name": "/admin",
+    "name": "/admin opens the admin panel",
     "steps": [
       {
+        "send": { "text": "/admin" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open admin panel for owner to manage products and settings"
+              "text": "🛠 Admin Panel\n\nWhat would you like to manage?"
             }
           }
-        ],
-        "send": {
-          "text": "/admin"
-        }
+        ]
       }
     ]
   }

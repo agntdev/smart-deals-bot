@@ -1,19 +1,17 @@
 [
   {
-    "name": "💻 Gadgets",
+    "name": "Gadgets shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:gadgets" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse gadget deals"
+              "text": "💻 No gadget deals right now — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:gadgets"
-        }
+        ]
       }
     ]
   }

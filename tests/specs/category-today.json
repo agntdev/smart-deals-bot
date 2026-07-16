@@ -1,19 +1,17 @@
 [
   {
-    "name": "🔥 Today's Deals",
+    "name": "Today's Deals shows empty state",
     "steps": [
       {
+        "send": { "callback": "category:today" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Show featured deals of the day"
+              "text": "🔥 No deals today yet — check back soon!"
             }
           }
-        ],
-        "send": {
-          "callback": "category:today"
-        }
+        ]
       }
     ]
   }
